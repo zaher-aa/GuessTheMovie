@@ -8,6 +8,9 @@ const tryAgain = document.getElementById("try-again");
 let attemptsLeftContainer = document.querySelector(".attempts-left");
 let attemptsLeftContent = "Attempts Left: "
 let spansArray = new Array;
+const success = new Audio("./audio/success.mp3");
+const fial = new Audio("./audio/fail.mp3");
+
 for (let i = 0; i < currentMovie.length; i++) {
     let letterContainer = document.createElement("span");
     answersContainer.appendChild(letterContainer);
@@ -17,8 +20,12 @@ btns.forEach(
     btn => 
         btn.addEventListener("click", () => {
             if (currentMovie.toLowerCase().includes(btn.innerHTML.toLowerCase())) {
+                success.play();
                 spansArray[currentMovie.indexOf(btn.innerHTML.toLowerCase())].innerHTML = btn.innerHTML;
                 spansArray[currentMovie.lastIndexOf(btn.innerHTML.toLowerCase())].innerHTML = btn.innerHTML;
+            } else {
+                success.pause();
+                fial.play();
             }
             btn.disabled = true;
             btn.classList.add("disabeld");
